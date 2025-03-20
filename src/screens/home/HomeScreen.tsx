@@ -1,26 +1,28 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { View, Text, StyleSheet } from 'react-native';
 
 const HomeScreen = () => {
-    return (
-        <View style={styles.container}>
-            <Text style={styles.title}>Welcome to the Home Screen!</Text>
-        </View>
-    );
+    const { t } = useTranslation();
+  return (
+    <View style={styles.container}>
+      <Text style={styles.title}>{t("greeting")}</Text>
+    </View>
+  );
 };
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: '#f8f8f8',
-    },
-    title: {
-        fontSize: 24,
-        fontWeight: 'bold',
-        color: '#333',
-    },
+  container: {
+    alignItems: 'center',
+    backgroundColor: '#f8f8f8',
+    flex: 1,
+    justifyContent: 'center',
+  },
+  title: {
+    color: '#333',
+    fontSize: 24,
+    fontWeight: 'bold',
+  },
 });
 
-export default HomeScreen
+export default HomeScreen;
