@@ -3,10 +3,10 @@ import { useTranslation } from 'react-i18next';
 import { View, Text, StyleSheet } from 'react-native';
 
 const HomeScreen = () => {
-    const { t } = useTranslation();
+  const { t } = useTranslation();
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>{t("greeting")}</Text>
+      <Text style={styles.title}>{t('greeting')}</Text>
     </View>
   );
 };
