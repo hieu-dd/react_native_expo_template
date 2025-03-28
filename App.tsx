@@ -1,17 +1,15 @@
 import React from 'react';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { NavigationIndependentTree } from '@react-navigation/native';
 import AppNavigator from '@/navigation/AppNavigator';
 import '@/i18n/config';
-
-const queryClient = new QueryClient();
+import WalletConnectProvider from '@/providers/WalletConnectProvider';
 
 export default function App() {
   return (
-    <QueryClientProvider client={queryClient}>
+    <WalletConnectProvider>
       <NavigationIndependentTree>
         <AppNavigator />
       </NavigationIndependentTree>
-    </QueryClientProvider>
+    </WalletConnectProvider>
   );
 }
