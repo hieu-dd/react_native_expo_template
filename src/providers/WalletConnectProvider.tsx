@@ -1,7 +1,7 @@
 import '@walletconnect/react-native-compat';
 import { WagmiProvider } from 'wagmi';
 import { mainnet, polygon, arbitrum } from '@wagmi/core/chains';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { QueryClientProvider } from '@tanstack/react-query';
 import {
   createAppKit,
   defaultWagmiConfig,
@@ -9,8 +9,7 @@ import {
 } from '@reown/appkit-wagmi-react-native';
 import React from 'react';
 import { WALLET_CONNECT_PROJECT_ID } from '@/config/env';
-
-const queryClient = new QueryClient();
+import { queryClient } from '@/config/queryClient';
 
 const projectId = WALLET_CONNECT_PROJECT_ID;
 
