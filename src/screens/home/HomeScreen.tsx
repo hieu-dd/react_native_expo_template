@@ -4,12 +4,14 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { View, Text, StyleSheet, Button, TextInput } from 'react-native';
 import { useHomeStore } from './stores/homeStore';
+import { useNavigation } from '@react-navigation/native';
 
 const HomeScreen = () => {
   const { t } = useTranslation();
   const { open } = useAppKit();
   const { setLoading } = useLoadingStore();
   const { data, filter, updateFilter, isLoading } = useHomeStore();
+  const navigation = useNavigation();
 
   return (
     <View style={styles.container}>
@@ -38,6 +40,10 @@ const HomeScreen = () => {
         onPress={() => {
           setLoading(true);
         }}
+      />
+      <Button
+        title={t('go_to_secondary')}
+        onPress={() => navigation.navigate('Secondary')}
       />
     </View>
   );
