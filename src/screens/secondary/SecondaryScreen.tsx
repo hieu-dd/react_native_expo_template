@@ -1,12 +1,13 @@
+import Colors from '@/constants/colors';
 import React from 'react';
 import { View, StyleSheet, ScrollView, Pressable } from 'react-native';
 
-const SecondaryScreen = () => {
-  const handlePress = (row, col) => {
+const SecondaryScreen: React.FC = () => {
+  const handlePress = (row: number, col: number): void => {
     console.log(`Cell pressed at row: ${row}, col: ${col}`);
   };
 
-  const renderGrid = () => {
+  const renderGrid = (): JSX.Element[] => {
     const rows = [];
     for (let i = 0; i < 10; i++) {
       const columns = [];
@@ -40,11 +41,11 @@ const SecondaryScreen = () => {
 
 const styles = StyleSheet.create({
   blackCell: {
-    backgroundColor: 'black',
+    backgroundColor: Colors.black,
   },
   cell: {
-    width: 120, // Increased from 40 to 80
-    height: 120, // Increased from 40 to 80
+    height: 120,
+    width: 120,
   },
   container: {
     flexDirection: 'column',
@@ -53,7 +54,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   whiteCell: {
-    backgroundColor: 'white',
+    backgroundColor: Colors.white,
   },
 });
 

@@ -1,17 +1,26 @@
-import useLoadingStore from '@/stores/loadingStore';
-import { useAppKit } from '@reown/appkit-wagmi-react-native';
 import React from 'react';
+import { Button, StyleSheet, Text, TextInput, View } from 'react-native';
 import { useTranslation } from 'react-i18next';
-import { View, Text, StyleSheet, Button, TextInput } from 'react-native';
-import { useHomeStore } from './stores/homeStore';
 import { useNavigation } from '@react-navigation/native';
+import { useAppKit } from '@reown/appkit-wagmi-react-native';
+import useLoadingStore from '@/stores/loadingStore';
+import { useHomeStore } from './stores/homeStore';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import Colors from '@/constants/colors';
 
-const HomeScreen = () => {
+type RootStackParamList = {
+  Home: undefined;
+  Secondary: undefined;
+};
+
+type NavigationProp = NativeStackNavigationProp<RootStackParamList>;
+
+const HomeScreen: React.FC = (): React.ReactElement => {
   const { t } = useTranslation();
   const { open } = useAppKit();
   const { setLoading } = useLoadingStore();
   const { data, filter, updateFilter, isLoading } = useHomeStore();
-  const navigation = useNavigation();
+  const navigation = useNavigation<NavigationProp>();
 
   return (
     <View style={styles.container}>
@@ -35,12 +44,7 @@ const HomeScreen = () => {
           open();
         }}
       />
-      <Button
-        title={t('disconnect_wallet')}
-        onPress={() => {
-          setLoading(true);
-        }}
-      />
+      <Button title={t('disconnect_wallet')} onPress={() => setLoading(true)} />
       <Button
         title={t('go_to_secondary')}
         onPress={() => navigation.navigate('Secondary')}
@@ -57,7 +61,7 @@ const styles = StyleSheet.create({
     padding: 16,
   },
   input: {
-    borderColor: '#ccc',
+    borderColor: Colors.gray,
     borderRadius: 8,
     borderWidth: 1,
     marginBottom: 16,
