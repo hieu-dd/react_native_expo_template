@@ -7,7 +7,7 @@ interface LoadingState {
   setLoading: (loading: boolean) => void;
 }
 
-const useLoadingStore = create<LoadingState>((set) => ({
+const useLoadingStore = create<LoadingState>(set => ({
   isLoading: false,
   setLoading: (loading: boolean) => set({ isLoading: loading }),
 }));

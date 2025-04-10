@@ -1,9 +1,4 @@
-import {
-  QueryClient,
-  type QueryFunction,
-  UseQueryOptions,
-  useQuery,
-} from '@tanstack/react-query';
+import { QueryClient, type QueryFunction, UseQueryOptions, useQuery } from '@tanstack/react-query';
 import { useEffect } from 'react';
 
 export const buildQueryOptions = <T>(fn: QueryFunction<T>) => ({

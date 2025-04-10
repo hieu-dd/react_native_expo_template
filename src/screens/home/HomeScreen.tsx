@@ -37,10 +37,7 @@ const HomeScreen: React.FC = (): React.ReactElement => {
         }}
       />
       <Button title={t('disconnect_wallet')} onPress={() => setLoading(true)} />
-      <Button
-        title={t('go_to_secondary')}
-        onPress={() => navigation.navigate('Secondary')}
-      />
+      <Button title={t('go_to_secondary')} onPress={() => navigation.navigate('Secondary')} />
     </View>
   );
 };

@@ -3,8 +3,8 @@ import { useState, useEffect } from 'react';
 
 // Define the API call function
 const fetchHomeData = async (filter: string) => {
-  await new Promise((resolve) => setTimeout(resolve, 1000)); // Simulate network delay
-  return ['12', '23', '34', '45', '56', '67', '78', '89', '90'].filter((item) =>
+  await new Promise(resolve => setTimeout(resolve, 1000)); // Simulate network delay
+  return ['12', '23', '34', '45', '56', '67', '78', '89', '90'].filter(item =>
     item.includes(filter),
   );
 };

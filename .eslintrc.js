@@ -1,45 +1,26 @@
 module.exports = {
   root: true,
-  parser: '@typescript-eslint/parser', // Sử dụng parser cho TypeScript
-  plugins: [
-    '@typescript-eslint',
-    'react-native',
-    'prettier', // Để tích hợp Prettier vào ESLint
-  ],
   extends: [
-    'eslint:recommended',
-    'plugin:@typescript-eslint/recommended', // Quy tắc cho TypeScript
-    'plugin:react-native/all', // Quy tắc dành cho React Native
-    'plugin:prettier/recommended', // Chạy Prettier như một rule ESLint và vô hiệu hóa các quy tắc xung đột
+    '@react-native-community',
+    'plugin:react/recommended',
+    'plugin:react-hooks/recommended',
+    'plugin:@typescript-eslint/recommended',
+    'prettier', // Đảm bảo eslint-config-prettier được đặt cuối cùng
   ],
-  parserOptions: {
-    ecmaVersion: 2020, // Hỗ trợ các tính năng mới của JavaScript
-    sourceType: 'module',
-    ecmaFeatures: {
-      jsx: true, // Cho phép sử dụng JSX
-    },
-  },
-  env: {
-    'react-native/react-native': true,
-  },
+  parser: '@typescript-eslint/parser',
+  plugins: ['react', 'react-hooks', '@typescript-eslint', 'prettier'],
   rules: {
-    // Thiết lập rule cho Prettier (chỉ cần định nghĩa nếu muốn ghi đè một số thiết lập)
-    'prettier/prettier': [
-      'error',
-      {
-        singleQuote: true,
-        trailingComma: 'all',
-        printWidth: 80,
-        tabWidth: 2,
-      },
-    ],
-    // Ví dụ tắt rule không cần thiết:
-    'react-native/no-inline-styles': 'off',
-    'react/react-in-jsx-scope': 'off', // Không cần thiết với React Native (vì không cần import React mỗi file)
+    'prettier/prettier': 'error',
+    'react/prop-types': 'off',
+    'react/react-in-jsx-scope': 'off', // Không cần import React từ React 17+
+    'react-hooks/rules-of-hooks': 'error',
+    'react-hooks/exhaustive-deps': 'warn',
+    '@typescript-eslint/no-unused-vars': ['warn', { argsIgnorePattern: '^_' }],
+    'no-console': ['warn', { allow: ['warn', 'error'] }],
   },
   settings: {
     react: {
-      version: 'detect', // Tự động xác định phiên bản React
+      version: 'detect',
     },
   },
 };

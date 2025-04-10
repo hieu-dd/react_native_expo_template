@@ -2,11 +2,7 @@ import '@walletconnect/react-native-compat';
 import { WagmiProvider } from 'wagmi';
 import { mainnet, polygon, arbitrum } from '@wagmi/core/chains';
 import { QueryClientProvider } from '@tanstack/react-query';
-import {
-  createAppKit,
-  defaultWagmiConfig,
-  AppKit,
-} from '@reown/appkit-wagmi-react-native';
+import { createAppKit, defaultWagmiConfig, AppKit } from '@reown/appkit-wagmi-react-native';
 import React from 'react';
 import { WALLET_CONNECT_PROJECT_ID } from '@/config/env';
 import { queryClient } from '@/config/queryClient';
@@ -25,9 +21,13 @@ const metadata = {
   },
 };
 
-const chains = [mainnet, polygon, arbitrum] as const;
+export const appChains = [mainnet, polygon, arbitrum] as const;
 
-const wagmiConfig = defaultWagmiConfig({ chains, projectId, metadata });
+const wagmiConfig = defaultWagmiConfig({
+  chains: appChains,
+  projectId,
+  metadata,
+});
 
 // 3. Create modal
 createAppKit({
@@ -36,9 +36,7 @@ createAppKit({
   defaultChain: mainnet, // Optional
 });
 
-const WalletConnectProvider: React.FC<{ children: React.ReactNode }> = ({
-  children,
-}) => {
+const WalletConnectProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   return (
     <WagmiProvider config={wagmiConfig}>
       <QueryClientProvider client={queryClient}>

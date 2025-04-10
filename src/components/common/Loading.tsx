@@ -1,12 +1,6 @@
 import useLoadingStore from '@/stores/loadingStore';
 import React from 'react';
-import {
-  View,
-  ActivityIndicator,
-  StyleSheet,
-  Text,
-  Button,
-} from 'react-native';
+import { View, ActivityIndicator, StyleSheet, Text, Button } from 'react-native';
 
 const Loading = () => {
   const { setLoading } = useLoadingStore();
