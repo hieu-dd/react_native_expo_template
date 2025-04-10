@@ -1,26 +1,18 @@
 import React from 'react';
 import { Button, StyleSheet, Text, TextInput, View } from 'react-native';
 import { useTranslation } from 'react-i18next';
-import { useNavigation } from '@react-navigation/native';
 import { useAppKit } from '@reown/appkit-wagmi-react-native';
 import useLoadingStore from '@/stores/loadingStore';
 import { useHomeStore } from './stores/homeStore';
-import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import Colors from '@/constants/colors';
-
-type RootStackParamList = {
-  Home: undefined;
-  Secondary: undefined;
-};
-
-type NavigationProp = NativeStackNavigationProp<RootStackParamList>;
+import { useAppNavigaton } from '@/navigation/AppNavigator';
 
 const HomeScreen: React.FC = (): React.ReactElement => {
   const { t } = useTranslation();
   const { open } = useAppKit();
   const { setLoading } = useLoadingStore();
   const { data, filter, updateFilter, isLoading } = useHomeStore();
-  const navigation = useNavigation<NavigationProp>();
+  const navigation = useAppNavigaton();
 
   return (
     <View style={styles.container}>
