@@ -47,3 +47,24 @@ export const login = async (
   }
   return false;
 };
+
+export const refreshToken = async (refreshToken: string): Promise<boolean> => {
+  const formData = new FormData();
+  formData.append('refreshToken', refreshToken);
+  const res = await axiosInstance.post<BaseResponse<SignInResponse>>(
+    `${BASE_API_URL}/briky/api/auth/refresh`,
+    formData,
+    {
+      headers: {
+        'content-type': 'multipart/form-data',
+      },
+    },
+  );
+  if (res.data.data) {
+    const { token } = res.data.data;
+    // Store tokens in AsyncStorage return true;
+    await storeAuthTokens(token);
+    return true;
+  }
+  return false;
+};

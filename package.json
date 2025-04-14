@@ -24,6 +24,7 @@
     "axios": "^1.8.4",
     "expo": "~52.0.42",
     "expo-application": "~6.0.2",
+    "expo-splash-screen": "~0.29.22",
     "expo-status-bar": "~2.0.1",
     "i18next": "^24.2.3",
     "react": "18.3.1",
