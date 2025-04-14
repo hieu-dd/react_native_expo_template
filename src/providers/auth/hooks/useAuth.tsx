@@ -7,11 +7,14 @@ import { useAccountEffect, useSignMessage, useSwitchChain } from 'wagmi';
 
 export const WELCOME_MESSAGE = (address: string, nonce: string) =>
   `Welcome to Briky Land!
-  
-  
+
+Click to sign in and accept the Briky Land Terms of Service (https://brikyland.com/tos) and Privacy Policy (https://brikyland.com/privacy).
+
+This request will not trigger a blockchain transaction or cost any gas fees.
+
 Wallet address:
 ${address}
-  
+
 Nonce:
 ${nonce}`;
 
@@ -43,7 +46,6 @@ export const useAuth = () => {
         message: WELCOME_MESSAGE(address, nonce),
       });
       const loginResponse = await login(address, nonce, signature);
-      console.table(loginResponse);
       authStore.setIsAuthenticated(true);
     } catch (error) {
       console.error(error);
@@ -70,7 +72,9 @@ export const useAuth = () => {
 
   useAccountEffect({
     onConnect(data) {
-      onHannelConnect(data.address);
+      if (!authStore.isAuthenticated) {
+        onHannelConnect(data.address);
+      }
       authStore.setAddress(data.address);
     },
     onDisconnect() {

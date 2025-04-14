@@ -1,6 +1,7 @@
 import { BASE_API_URL } from '@/config/env';
 import axiosInstance from './axiosInstance';
-import { SignInResponse } from '@/types/index.types';
+import { BaseResponse, SignInResponse } from '@/types/index.types';
+import { storeAuthTokens } from '@/utils/storage';
 
 export const getNonce = async (address: string): Promise<string> => {
   const formData = new FormData();
@@ -23,17 +24,26 @@ export const login = async (
   address: string,
   nonce: string,
   signature: string,
-): Promise<SignInResponse> => {
+): Promise<boolean> => {
   const formData = new FormData();
   formData.append('address', address);
   formData.append('nonce', nonce);
   formData.append('signature', signature);
 
-  const res = await axiosInstance.post(`${BASE_API_URL}/briky/api/auth/sign-in`, formData, {
-    headers: {
-      'content-type': 'multipart/form-data',
+  const res = await axiosInstance.post<BaseResponse<SignInResponse>>(
+    `${BASE_API_URL}/briky/api/auth/sign-in`,
+    formData,
+    {
+      headers: {
+        'content-type': 'multipart/form-data',
+      },
     },
-  });
-
-  return res.data.data;
+  );
+  if (res.data.data) {
+    const { token, refreshToken } = res.data.data;
+    // Store tokens in AsyncStorage return true;
+    await storeAuthTokens(token, refreshToken);
+    return true;
+  }
+  return false;
 };
