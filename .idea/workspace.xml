@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="372d269d-d482-48a8-8385-001848bd708f" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.eslintrc.js" beforeDir="false" afterPath="$PROJECT_DIR$/.eslintrc.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.prettierrc.js" beforeDir="false" afterPath="$PROJECT_DIR$/.prettierrc.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.vscode/settings.json" beforeDir="false" afterPath="$PROJECT_DIR$/.vscode/settings.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/App.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/babel.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/babel.config.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/common/Loading.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/common/Loading.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/config/env.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/config/env.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/config/queryClient.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/config/queryClient.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/constants/colors.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/constants/colors.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/constants/textStyles.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/constants/textStyles.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hooks/useRefreshToken.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/hooks/useRefreshToken.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/i18n/config.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/i18n/config.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/navigation/AppNavigator.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/navigation/AppNavigator.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/providers/WalletConnectProvider.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/providers/WalletConnectProvider.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/providers/auth/AuthProvider.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/providers/auth/AuthProvider.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/providers/auth/hooks/useAuth.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/providers/auth/hooks/useAuth.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/screens/home/HomeScreen.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/screens/home/HomeScreen.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/screens/home/stores/homeStore.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/screens/home/stores/homeStore.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/screens/secondary/SecondaryScreen.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/screens/secondary/SecondaryScreen.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/service/axiosInstance.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/service/axiosInstance.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/service/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/service/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/service/tokenManager.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/service/tokenManager.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/stores/authStore.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/stores/authStore.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/stores/loadingStore.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/stores/loadingStore.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/types/index.types.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/types/index.types.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utils/storage.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/storage.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/yarn.lock" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 8
+}]]></component>
+  <component name="ProjectId" id="2vl4U75SR0RNfebuGUkK6NNP3Kz" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "dart.analysis.tool.window.visible": "false",
+    "git-widget-placeholder": "main",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "/Users/doduchieu/Project/Js/react_native_expo_template",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "yarn",
+    "prettierjs.PrettierConfiguration.Package": "/Users/doduchieu/Project/Js/react_native_expo_template/node_modules/prettier",
+    "show.migrate.to.gradle.popup": "false",
+    "ts.external.directory.path": "/Users/doduchieu/Project/Js/react_native_expo_template/node_modules/typescript/lib",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9823dce3aa75-a94e463ab2e7-intellij.indexing.shared.core-IU-243.25659.39" />
+        <option value="bundled-js-predefined-d6986cc7102b-1632447f56bf-JavaScript-IU-243.25659.39" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="372d269d-d482-48a8-8385-001848bd708f" name="Changes" comment="" />
+      <created>1744706340211</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1744706340211</updated>
+      <workItem from="1744706341552" duration="438000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>

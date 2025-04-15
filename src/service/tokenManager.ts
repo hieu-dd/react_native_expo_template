@@ -3,7 +3,7 @@
  * Simple token management without listeners
  */
 
-import axiosInstance from './axiosInstance';
+import axiosInstance from "./axiosInstance"
 
 /**
  * Update the stored auth token
@@ -11,9 +11,9 @@ import axiosInstance from './axiosInstance';
  */
 export const updateAuthToken = (token: string | null): void => {
   if (token) {
-    axiosInstance.defaults.headers.common.Authorization = `Bearer ${token}`;
+    axiosInstance.defaults.headers.common.Authorization = `Bearer ${token}`
   } else {
     // Remove Authorization header when token is cleared
-    delete axiosInstance.defaults.headers.common.Authorization;
+    delete axiosInstance.defaults.headers.common.Authorization
   }
-};
+}
