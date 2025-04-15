@@ -1,10 +1,13 @@
 import Colors from "@/constants/colors"
 import React from "react"
 import { View, StyleSheet, ScrollView, Pressable } from "react-native"
+import Logger from "@/utils/logger"
 
 const SecondaryScreen: React.FC = () => {
+  // Create a tagged logger for this component
+  const logger = new Logger({ tag: "SecondaryScreen" })
   const handlePress = (row: number, col: number): void => {
-    console.log(`Cell pressed at row: ${row}, col: ${col}`)
+    logger.debug(`Cell pressed at row: ${row}, col: ${col}`, { row, col })
   }
 
   const renderGrid = (): JSX.Element[] => {
