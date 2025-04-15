@@ -1,9 +1,9 @@
-import useLoadingStore from '@/stores/loadingStore';
-import React from 'react';
-import { View, ActivityIndicator, StyleSheet, Text, Button } from 'react-native';
+import useLoadingStore from "@/stores/loadingStore"
+import React from "react"
+import { View, ActivityIndicator, StyleSheet, Text, Button } from "react-native"
 
 const Loading = () => {
-  const { setLoading } = useLoadingStore();
+  const { setLoading } = useLoadingStore()
   return (
     <View style={styles.container}>
       <ActivityIndicator size="large" color="#3498db" />
@@ -11,24 +11,24 @@ const Loading = () => {
       <Button
         title="Cancel"
         onPress={() => {
-          setLoading(false);
+          setLoading(false)
         }}
         color="#e74c3c"
       />
     </View>
-  );
-};
+  )
+}
 
 const styles = StyleSheet.create({
   container: {
-    alignItems: 'center',
+    alignItems: "center",
     flex: 1,
-    justifyContent: 'center',
+    justifyContent: "center",
   },
   text: {
     fontSize: 16,
     marginTop: 10,
   },
-});
+})
 
-export default Loading;
+export default Loading

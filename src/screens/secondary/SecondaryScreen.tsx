@@ -1,34 +1,34 @@
-import Colors from '@/constants/colors';
-import React from 'react';
-import { View, StyleSheet, ScrollView, Pressable } from 'react-native';
+import Colors from "@/constants/colors"
+import React from "react"
+import { View, StyleSheet, ScrollView, Pressable } from "react-native"
 
 const SecondaryScreen: React.FC = () => {
   const handlePress = (row: number, col: number): void => {
-    console.log(`Cell pressed at row: ${row}, col: ${col}`);
-  };
+    console.log(`Cell pressed at row: ${row}, col: ${col}`)
+  }
 
   const renderGrid = (): JSX.Element[] => {
-    const rows = [];
+    const rows = []
     for (let i = 0; i < 10; i++) {
-      const columns = [];
+      const columns = []
       for (let j = 0; j < 10; j++) {
-        const isBlack = (i + j) % 2 === 0;
+        const isBlack = (i + j) % 2 === 0
         columns.push(
           <Pressable
             key={`${i}-${j}`}
             style={[styles.cell, isBlack ? styles.blackCell : styles.whiteCell]}
             onPress={() => handlePress(i, j)}
           />,
-        );
+        )
       }
       rows.push(
         <View key={i} style={styles.row}>
           {columns}
         </View>,
-      );
+      )
     }
-    return rows;
-  };
+    return rows
+  }
 
   return (
     <ScrollView horizontal>
@@ -36,8 +36,8 @@ const SecondaryScreen: React.FC = () => {
         <View style={styles.container}>{renderGrid()}</View>
       </ScrollView>
     </ScrollView>
-  );
-};
+  )
+}
 
 const styles = StyleSheet.create({
   blackCell: {
@@ -48,14 +48,14 @@ const styles = StyleSheet.create({
     width: 120,
   },
   container: {
-    flexDirection: 'column',
+    flexDirection: "column",
   },
   row: {
-    flexDirection: 'row',
+    flexDirection: "row",
   },
   whiteCell: {
     backgroundColor: Colors.white,
   },
-});
+})
 
-export default SecondaryScreen;
+export default SecondaryScreen

@@ -18,13 +18,12 @@
     "@react-navigation/native-stack": "^7.3.1",
     "@react-navigation/stack": "^7.2.1",
     "@reown/appkit-wagmi-react-native": "^1.2.3",
-    "@tanstack/react-query": "^5.69.3",
+    "@tanstack/react-query": "^5.74.3",
     "@tanstack/react-query-devtools": "^5.69.0",
     "@walletconnect/react-native-compat": "^2.19.2",
     "axios": "^1.8.4",
-    "expo": "~52.0.42",
+    "expo": "~52.0.46",
     "expo-application": "~6.0.2",
-    "expo-splash-screen": "~0.29.22",
     "expo-status-bar": "~2.0.1",
     "i18next": "^24.2.3",
     "react": "18.3.1",
@@ -33,11 +32,11 @@
     "react-native": "0.76.9",
     "react-native-gesture-handler": "~2.20.2",
     "react-native-get-random-values": "~1.11.0",
-    "react-native-modal": "13.0.2",
+    "react-native-modal": "^14.0.0-rc.1",
     "react-native-safe-area-context": "4.12.0",
     "react-native-svg": "15.8.0",
-    "viem": "^2.24.1",
-    "wagmi": "^2.14.15",
+    "viem": "^2.27.0",
+    "wagmi": "^2.14.16",
     "zustand": "^5.0.3"
   },
   "devDependencies": {
@@ -67,6 +66,17 @@
   "private": true,
   "engines": {
     "node": ">=16.0.0"
+  },
+  "expo": {
+    "doctor": {
+      "reactNativeDirectoryCheck": {
+        "listUnknownPackages": false,
+        "exclude": [
+          "@reown/appkit-wagmi-react-native",
+          "i18next"
+        ]
+      }
+    }
   },
   "resolutions": {
     "@typescript-eslint/eslint-plugin": "8.29.1",

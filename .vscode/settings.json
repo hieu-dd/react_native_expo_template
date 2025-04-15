@@ -20,5 +20,9 @@
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   "eslint.validate": ["javascript", "javascriptreact", "typescript", "typescriptreact"],
-  "prettier.requireConfig": true
+  "prettier.requireConfig": true,
+  "eslint.format.enable": false, // Thêm dòng này để tránh ESLint ghi đè Prettier
+  "prettier.jsxSingleQuote": false, // Đảm bảo JSX cũng sử dụng dấu ngoặc kép
+  "prettier.singleQuote": false, // Đồng bộ với cấu hình .prettierrc.js
+  "prettier.semi": false // Đồng bộ với cấu hình .prettierrc.js
 }
