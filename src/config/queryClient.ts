@@ -1,5 +1,9 @@
 import { QueryClient, type QueryFunction, UseQueryOptions, useQuery } from "@tanstack/react-query"
-import { useEffect } from "react"
+import { useCallback, useEffect } from "react"
+import Logger from "@/utils/logger"
+
+// Create a logger instance for query operations
+const logger = new Logger({ tag: "Query" })
 
 export const buildQueryOptions = <T>(fn: QueryFunction<T>) => ({
   queryKey: [fn.name],
@@ -11,10 +15,10 @@ export const queryClient = new QueryClient()
 export const useQueryWithErrorHandling = <T>(options: UseQueryOptions<T>) => {
   // TODO - handleError should be a custom hook that handles errors
   // and shows a toast or some other UI element
-  const handleError = (error: unknown) => {
-    console.error("Error:", error)
+  const handleError = useCallback((error: unknown) => {
+    logger.error("Query error", error)
     // TODO - show a toast or some other UI element
-  }
+  }, [])
   const { data, isLoading, isFetching, error, refetch } = useQuery<T>(options)
 
   useEffect(() => {

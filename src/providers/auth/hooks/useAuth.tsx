@@ -1,9 +1,15 @@
 import { PROVIDER_CHAIN_ID } from "@/config/env"
 import { appChains } from "@/providers/WalletConnectProvider"
-import { getNonce, login } from "@/service"
+import { getNonceApi, loginApi } from "@/service"
 import useAuthStore from "@/stores/authStore"
+import { WalletAddress } from "@/types/index.types"
+import Logger from "@/utils/logger"
 import { useAppKitState } from "@reown/appkit-wagmi-react-native"
-import { useAccountEffect, useSignMessage, useSwitchChain } from "wagmi"
+import { useCallback, useEffect } from "react"
+import { useAccount, useSignMessage, useSwitchChain } from "wagmi"
+
+// Create a logger instance for auth operations
+const logger = new Logger({ tag: "Auth" })
 
 export const WELCOME_MESSAGE = (address: string, nonce: string) =>
   `Welcome to Briky Land!
@@ -19,14 +25,24 @@ Nonce:
 ${nonce}`
 
 export const useAuth = () => {
+  const { address } = useAccount()
   const authStore = useAuthStore()
   const { selectedNetworkId } = useAppKitState()
   const { switchChainAsync } = useSwitchChain()
   const { signMessageAsync } = useSignMessage()
 
+  useEffect(() => {
+    if (!authStore.isAuthenticated && address) {
+      onHannelConnect(address)
+    }
+    if (!address) {
+      authStore.setAddress(undefined)
+    }
+  }, [address, authStore.isAuthenticated])
+
   const needSwitchNetwork = !appChains.find((chain) => chain.id === selectedNetworkId)
 
-  const handleSwitchNetwork = async () => {
+  const handleSwitchNetwork = useCallback(async () => {
     try {
       const result = await switchChainAsync({ chainId: PROVIDER_CHAIN_ID })
       if (result.id !== PROVIDER_CHAIN_ID) {
@@ -36,49 +52,45 @@ export const useAuth = () => {
     } catch {
       return false
     }
-  }
+  }, [switchChainAsync])
 
-  const handleSignMessage = async (address: string) => {
-    try {
-      // Get nonce and sign message
-      const nonce = await getNonce(address)
-      const signature = await signMessageAsync({
-        message: WELCOME_MESSAGE(address, nonce),
-      })
-      const loginResponse = await login(address, nonce, signature)
-      authStore.setIsAuthenticated(true)
-    } catch (error) {
-      console.error(error)
-    } finally {
-      console.log("Finish handleSignMessage")
-      if (selectedNetworkId !== PROVIDER_CHAIN_ID) {
-        await handleSwitchNetwork()
+  const handleSignMessage = useCallback(
+    async (walletAddress: string) => {
+      try {
+        // Get nonce and sign message
+        const nonce = await getNonceApi(walletAddress)
+        const signature = await signMessageAsync({
+          message: WELCOME_MESSAGE(walletAddress, nonce),
+        })
+        const result = await loginApi(walletAddress, nonce, signature)
+        if (result) {
+          authStore.setAddress(walletAddress as WalletAddress)
+        }
+      } catch (error) {
+        logger.error("Sign message failed", error)
+      } finally {
+        logger.debug("Finished handleSignMessage")
+        if (selectedNetworkId !== PROVIDER_CHAIN_ID) {
+          await handleSwitchNetwork()
+        }
       }
-    }
-  }
+    },
+    [authStore, handleSwitchNetwork, selectedNetworkId, signMessageAsync],
+  )
 
-  const onHannelConnect = async (address: string) => {
-    if (needSwitchNetwork) {
-      const result = await handleSwitchNetwork()
-      if (result) {
-        console.log("Switch network success")
+  const onHannelConnect = useCallback(
+    async (walletAddress: string) => {
+      if (needSwitchNetwork) {
+        const result = await handleSwitchNetwork()
+        if (result) {
+          logger.success("Switch network successful")
+        } else {
+          logger.warn("Switch network failed")
+        }
       } else {
-        console.log("Switch network failed")
+        await handleSignMessage(walletAddress)
       }
-    } else {
-      await handleSignMessage(address)
-    }
-  }
-
-  useAccountEffect({
-    onConnect(data) {
-      if (!authStore.isAuthenticated) {
-        onHannelConnect(data.address)
-      }
-      authStore.setAddress(data.address)
     },
-    onDisconnect() {
-      authStore.setAddress(undefined)
-    },
-  })
+    [handleSignMessage, handleSwitchNetwork, needSwitchNetwork],
+  )
 }

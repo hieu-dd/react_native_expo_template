@@ -11,7 +11,7 @@ interface AuthState {
 const useAuthStore = create<AuthState>((set) => ({
   isAuthenticated: false,
   address: undefined,
-  setAddress: (address?: WalletAddress) => set({ address }),
+  setAddress: (address?: WalletAddress) => set({ address, isAuthenticated: !!address }),
   setIsAuthenticated: (isAuthenticated: boolean) => set({ isAuthenticated }),
 }))
 

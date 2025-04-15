@@ -6,12 +6,13 @@ import useLoadingStore from "@/stores/loadingStore"
 import { useHomeStore } from "./stores/homeStore"
 import Colors from "@/constants/colors"
 import { useAppNavigaton } from "@/navigation/AppNavigator"
+import useWalletConnect from "@/hooks/useWalletConnect"
+import useAuthStore from "@/stores/authStore"
 
 const HomeScreen: React.FC = (): React.ReactElement => {
   const { t } = useTranslation()
-  const { open } = useAppKit()
-  const { setLoading } = useLoadingStore()
-  const { data, filter, updateFilter, isLoading } = useHomeStore()
+  const { connect, disconnect } = useWalletConnect()
+  const { data, filter, updateFilter, isLoading, address } = useHomeStore()
   const navigation = useAppNavigaton()
 
   return (
@@ -30,13 +31,9 @@ const HomeScreen: React.FC = (): React.ReactElement => {
           {t("results")}: {data?.join(", ") || t("no_results")}
         </Text>
       )}
-      <Button
-        title={t("connect_wallet")}
-        onPress={() => {
-          open()
-        }}
-      />
-      <Button title={t("disconnect_wallet")} onPress={() => setLoading(true)} />
+      <Text>{address}</Text>
+      <Button title={t("connect_wallet")} onPress={connect} />
+      <Button title={t("disconnect_wallet")} onPress={disconnect} />
       <Button title={t("go_to_secondary")} onPress={() => navigation.navigate("Secondary")} />
     </View>
   )

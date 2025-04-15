@@ -1,47 +1,17 @@
 import { BASE_API_URL } from "@/config/env"
-import axios from "axios"
+import axios, { InternalAxiosRequestConfig, AxiosResponse } from "axios"
+import Logger from "@/utils/logger"
 
-// Debug configuration
-const DEBUG = {
-  enabled: process.env.NODE_ENV !== "production",
-  colors: {
-    request: "\x1b[34m%s\x1b[0m", // Blue
-    response: "\x1b[32m%s\x1b[0m", // Green
-    error: "\x1b[31m%s\x1b[0m", // Red
-    warning: "\x1b[33m%s\x1b[0m", // Yellow
-  },
-}
+// Create a logger instance for axios
+const logger = new Logger({ tag: "Axios" })
 
-// Logger utility
-const logger = {
-  request: (message: string, data?: any) => {
-    if (DEBUG.enabled) {
-      console.group(DEBUG.colors.request, `🔽 REQUEST: ${message}`)
-      if (data) console.dir(data, { depth: null, colors: true })
-      console.groupEnd()
+// Extend InternalAxiosRequestConfig to include metadata for timing
+declare module "axios" {
+  interface InternalAxiosRequestConfig {
+    metadata?: {
+      startTime: Date
     }
-  },
-  response: (message: string, data?: any) => {
-    if (DEBUG.enabled) {
-      console.group(DEBUG.colors.response, `🔼 RESPONSE: ${message}`)
-      if (data) console.dir(data, { depth: null, colors: true })
-      console.groupEnd()
-    }
-  },
-  error: (message: string, data?: any) => {
-    if (DEBUG.enabled) {
-      console.group(DEBUG.colors.error, `❌ ERROR: ${message}`)
-      if (data) console.dir(data, { depth: null, colors: true })
-      console.groupEnd()
-    }
-  },
-  warning: (message: string, data?: any) => {
-    if (DEBUG.enabled) {
-      console.group(DEBUG.colors.warning, `⚠️ WARNING: ${message}`)
-      if (data) console.dir(data, { depth: null, colors: true })
-      console.groupEnd()
-    }
-  },
+  }
 }
 
 const axiosInstance = axios.create({
@@ -55,51 +25,84 @@ const axiosInstance = axios.create({
 
 // Request interceptor
 axiosInstance.interceptors.request.use(
-  (config) => {
-    logger.request(`${config.method?.toUpperCase()} ${config.url}`, {
+  (config: InternalAxiosRequestConfig) => {
+    // Add timing metadata to track request duration
+    config.metadata = { startTime: new Date() }
+
+    // Format request data for better readability
+    const requestInfo = {
+      url: `${config.baseURL}${config.url}`,
+      method: config.method?.toUpperCase(),
       headers: config.headers,
       params: config.params,
       data: config.data,
-      baseURL: config.baseURL,
-    })
+    }
+
+    logger.info(`📡 REQUEST: ${config.method?.toUpperCase()} ${config.url}`, requestInfo)
 
     return config
   },
-  (error) => {
-    logger.error("Request Failed", error)
+  (error: any) => {
+    logger.error("❌ Request Failed", {
+      message: error.message,
+      stack: error.stack,
+      config: error.config,
+    })
     return Promise.reject(error)
   },
 )
 
 // Response interceptor
 axiosInstance.interceptors.response.use(
-  (response) => {
-    logger.response(`${response.status} ${response.config.url}`, {
-      data: response.data,
-      headers: response.headers,
+  (response: AxiosResponse) => {
+    // Calculate request duration
+    const requestDuration = response.config?.metadata
+      ? `${new Date().getTime() - response.config.metadata.startTime.getTime()}ms`
+      : "unknown"
+
+    // Format response data for better readability
+    const responseInfo = {
       status: response.status,
       statusText: response.statusText,
-    })
+      duration: requestDuration,
+      headers: response.headers,
+      data: response.data,
+      size: JSON.stringify(response.data).length + " bytes",
+    }
+
+    logger.success(
+      `✅ RESPONSE: ${response.status} ${response.config.url} (${requestDuration})`,
+      responseInfo,
+    )
 
     return response
   },
-  (error) => {
+  (error: any) => {
+    // Calculate request duration even for errors
     const requestDuration = error.config?.metadata
       ? `${new Date().getTime() - error.config.metadata.startTime.getTime()}ms`
       : "unknown"
 
+    // Format error data for better readability
+    const errorInfo = {
+      url: error.config?.url,
+      method: error.config?.method?.toUpperCase(),
+      duration: requestDuration,
+      status: error.response?.status,
+      statusText: error.response?.statusText,
+      headers: error.response?.headers,
+      data: error.response?.data,
+      message: error.message,
+      stack: error.stack?.split("\n").slice(0, 3).join("\n"), // First 3 lines of stack trace
+    }
+
     logger.error(
-      `Failed ${error.config?.method?.toUpperCase()} ${error.config?.url} (${requestDuration})`,
-      {
-        status: error.response?.status,
-        statusText: error.response?.statusText,
-        data: error.response?.data,
-        message: error.message,
-      },
+      `❌ FAILED: ${error.config?.method?.toUpperCase()} ${error.config?.url} (${requestDuration})`,
+      errorInfo,
     )
 
     if (error.response?.status === 401) {
-      logger.warning("Authentication required", { redirectToLogin: true })
+      logger.warn("⚠️ Authentication required", { redirectToLogin: true })
       // Handle unauthorized error (e.g., redirect to login)
     }
 

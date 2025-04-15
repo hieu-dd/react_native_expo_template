@@ -1,3 +1,4 @@
+import useAuthStore from "@/stores/authStore"
 import { useQuery } from "@tanstack/react-query"
 import { useState, useEffect } from "react"
 
@@ -12,6 +13,7 @@ const fetchHomeData = async (filter: string) => {
 export const useHomeStore = () => {
   const [filter, setFilter] = useState<string>("1")
   const [debouncedFilter, setDebouncedFilter] = useState<string>(filter)
+  const { address } = useAuthStore()
 
   useEffect(() => {
     const handler = setTimeout(() => setDebouncedFilter(filter), 300) // Debounce filter
@@ -30,6 +32,7 @@ export const useHomeStore = () => {
   }
 
   return {
+    address,
     data,
     isLoading,
     isError,

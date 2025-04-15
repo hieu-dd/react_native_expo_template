@@ -3,7 +3,7 @@ import axiosInstance from "./axiosInstance"
 import { BaseResponse, SignInResponse } from "@/types/index.types"
 import { storeAuthTokens } from "@/utils/storage"
 
-export const getNonce = async (address: string): Promise<string> => {
+export const getNonceApi = async (address: string): Promise<string> => {
   const formData = new FormData()
   formData.append("address", address)
 
@@ -20,7 +20,7 @@ export const getNonce = async (address: string): Promise<string> => {
   return res.data.data.nonce
 }
 
-export const login = async (
+export const loginApi = async (
   address: string,
   nonce: string,
   signature: string,
@@ -48,7 +48,7 @@ export const login = async (
   return false
 }
 
-export const refreshToken = async (refreshToken: string): Promise<boolean> => {
+export const refreshTokenApi = async (refreshToken: string): Promise<boolean> => {
   const formData = new FormData()
   formData.append("refreshToken", refreshToken)
   const res = await axiosInstance.post<BaseResponse<SignInResponse>>(

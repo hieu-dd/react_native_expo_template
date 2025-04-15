@@ -1,6 +1,6 @@
 import { useEffect, useState, useCallback } from "react"
 import useAuthStore from "@/stores/authStore"
-import { refreshToken } from "@/service"
+import { refreshTokenApi } from "@/service"
 import * as SplashScreen from "expo-splash-screen"
 import { getData, STORAGE_KEYS } from "@/utils/storage"
 
@@ -23,7 +23,7 @@ const useRefreshToken = () => {
         }
 
         // Use the existing refreshToken function from service
-        const success = await refreshToken(storedRefreshToken)
+        const success = await refreshTokenApi(storedRefreshToken)
 
         if (success) {
           // Update authentication state

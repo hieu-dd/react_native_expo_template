@@ -1,5 +1,9 @@
 import AsyncStorage from "@react-native-async-storage/async-storage"
 import { updateAuthToken } from "@/service/tokenManager"
+import Logger from "./logger"
+
+// Create a logger instance for storage operations
+const logger = new Logger({ tag: "Storage" })
 
 /**
  * Storage keys used in the application
@@ -22,7 +26,7 @@ export const storeData = async (key: string, value: string): Promise<void> => {
   try {
     await AsyncStorage.setItem(key, value)
   } catch (error) {
-    console.error(`Error storing data for key ${key}:`, error)
+    logger.error(`Error storing data for key ${key}`, error)
   }
 }
 
@@ -36,7 +40,7 @@ export const storeObjectData = async (key: string, value: object): Promise<void>
     const jsonValue = JSON.stringify(value)
     await AsyncStorage.setItem(key, jsonValue)
   } catch (error) {
-    console.error(`Error storing object data for key ${key}:`, error)
+    logger.error(`Error storing object data for key ${key}`, error)
   }
 }
 
@@ -49,7 +53,7 @@ export const getData = async (key: string): Promise<string | null> => {
   try {
     return await AsyncStorage.getItem(key)
   } catch (error) {
-    console.error(`Error getting data for key ${key}:`, error)
+    logger.error(`Error getting data for key ${key}`, error)
     return null
   }
 }
@@ -64,7 +68,7 @@ export const getObjectData = async <T>(key: string): Promise<T | null> => {
     const jsonValue = await AsyncStorage.getItem(key)
     return jsonValue != null ? (JSON.parse(jsonValue) as T) : null
   } catch (error) {
-    console.error(`Error getting object data for key ${key}:`, error)
+    logger.error(`Error getting object data for key ${key}`, error)
     return null
   }
 }
@@ -77,7 +81,7 @@ export const removeData = async (key: string): Promise<void> => {
   try {
     await AsyncStorage.removeItem(key)
   } catch (error) {
-    console.error(`Error removing data for key ${key}:`, error)
+    logger.error(`Error removing data for key ${key}`, error)
   }
 }
 
@@ -89,7 +93,7 @@ export const removeMultipleData = async (keys: string[]): Promise<void> => {
   try {
     await AsyncStorage.multiRemove(keys)
   } catch (error) {
-    console.error("Error removing multiple data:", error)
+    logger.error("Error removing multiple data", error)
   }
 }
 
@@ -100,7 +104,7 @@ export const clearAllData = async (): Promise<void> => {
   try {
     await AsyncStorage.clear()
   } catch (error) {
-    console.error("Error clearing all data:", error)
+    logger.error("Error clearing all data", error)
   }
 }
 
@@ -112,7 +116,7 @@ export const getAllKeys = async (): Promise<readonly string[]> => {
   try {
     return await AsyncStorage.getAllKeys()
   } catch (error) {
-    console.error("Error getting all keys:", error)
+    logger.error("Error getting all keys", error)
     return []
   }
 }
