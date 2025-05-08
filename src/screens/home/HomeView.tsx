@@ -1,60 +1,32 @@
 import React from "react"
-import { Button, StyleSheet, Text, TextInput, View } from "react-native"
-import { useTranslation } from "react-i18next"
-import Colors from "@/constants/colors"
-import useWalletConnect from "@/hooks/useWalletConnect"
+import { StyleSheet, Text, View } from "react-native"
 import { useAppNavigaton } from "@/navigation/Routers"
-import { useHomeContext } from "./context/HomeContext"
 
 const HomeView: React.FC = (): React.ReactElement => {
-  const { t } = useTranslation()
-  const { connect, disconnect } = useWalletConnect()
-  const { data, filter, updateFilter, isLoading, address } = useHomeContext()
+  //   const { data } = useHomeContext()
   const navigation = useAppNavigaton()
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>{t("greeting")}</Text>
-      <TextInput
-        style={styles.input}
-        placeholder={t("enter_filter")}
-        value={filter}
-        onChangeText={updateFilter}
-      />
-      {isLoading ? (
-        <Text>{t("loading")}</Text>
-      ) : (
-        <Text>
-          {t("results")}: {data?.join(", ") || t("no_results")}
-        </Text>
-      )}
-      <Text>{address}</Text>
-      <Button title={t("connect_wallet")} onPress={connect} />
-      <Button title={t("disconnect_wallet")} onPress={disconnect} />
-      <Button title={t("go_to_secondary")} onPress={() => navigation.navigate("Secondary")} />
+      <Text style={styles.text}>Home Screen</Text>
     </View>
   )
 }
 
 const styles = StyleSheet.create({
   container: {
-    alignItems: "center",
     flex: 1,
     justifyContent: "center",
-    padding: 16,
+    alignItems: "center",
   },
-  input: {
-    borderColor: Colors.gray,
-    borderRadius: 8,
-    borderWidth: 1,
-    marginBottom: 16,
-    padding: 8,
-    width: "100%",
-  },
-  title: {
+  text: {
     fontSize: 24,
     fontWeight: "bold",
-    marginBottom: 16,
+    marginBottom: 10,
+  },
+  idText: {
+    fontSize: 18,
+    color: "#666",
   },
 })
 
