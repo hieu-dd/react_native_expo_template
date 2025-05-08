@@ -1,13 +1,10 @@
 import React from "react"
 import { Button, StyleSheet, Text, TextInput, View } from "react-native"
 import { useTranslation } from "react-i18next"
-import { useAppKit } from "@reown/appkit-wagmi-react-native"
-import useLoadingStore from "@/stores/loadingStore"
 import { useHomeStore } from "./stores/homeStore"
 import Colors from "@/constants/colors"
-import { useAppNavigaton } from "@/navigation/AppNavigator"
 import useWalletConnect from "@/hooks/useWalletConnect"
-import useAuthStore from "@/stores/authStore"
+import { useAppNavigaton } from "@/navigation/Routers"
 
 const HomeScreen: React.FC = (): React.ReactElement => {
   const { t } = useTranslation()

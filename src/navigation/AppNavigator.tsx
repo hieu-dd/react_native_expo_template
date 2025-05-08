@@ -1,31 +1,37 @@
 import * as React from "react"
-import { NavigationContainer, useNavigation } from "@react-navigation/native"
+import { NavigationContainer } from "@react-navigation/native"
 import { createStackNavigator } from "@react-navigation/stack"
-import HomeScreen from "@/screens/home/HomeScreen"
-import SecondaryScreen from "@/screens/secondary/SecondaryScreen"
-import { NativeStackNavigationProp } from "@react-navigation/native-stack"
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs"
+import { HomeScreen, ExplorerScreen, ProfileScreen, SettingScreen, DetailScreen } from "@/screens"
+import { EXPLORER, HOME, MAIN_TABS, DETAIL, PROFILE, SETTING } from "./Routers"
+
 const Stack = createStackNavigator()
+const Tab = createBottomTabNavigator()
 
-type RootStackParamList = {
-  Home: undefined
-  Secondary: undefined
+const MainTabNavigator = () => {
+  return (
+    <Tab.Navigator>
+      <Tab.Screen name={HOME} component={HomeScreen} />
+      <Tab.Screen name={EXPLORER} component={ExplorerScreen} />
+      <Tab.Screen name={PROFILE} component={ProfileScreen} />
+      <Tab.Screen name={SETTING} component={SettingScreen} />
+    </Tab.Navigator>
+  )
 }
-
-export type NavigationProp = NativeStackNavigationProp<RootStackParamList>
 
 const AppNavigator = () => {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Home">
-        <Stack.Screen name="Home" component={HomeScreen} />
-        <Stack.Screen name="Secondary" component={SecondaryScreen} />
+      <Stack.Navigator initialRouteName={MAIN_TABS}>
+        <Stack.Screen
+          name={MAIN_TABS}
+          component={MainTabNavigator}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen name={DETAIL} component={DetailScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   )
-}
-
-export const useAppNavigaton = () => {
-  return useNavigation<NavigationProp>()
 }
 
 export default AppNavigator
