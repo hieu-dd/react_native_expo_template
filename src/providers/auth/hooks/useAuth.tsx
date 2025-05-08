@@ -1,6 +1,6 @@
 import { PROVIDER_CHAIN_ID } from "@/config/env"
 import { appChains } from "@/providers/WalletConnectProvider"
-import { getNonceApi, loginApi } from "@/service"
+import { getNonceApi, getProfileApi, loginApi } from "@/service"
 import useAuthStore from "@/stores/authStore"
 import { WalletAddress } from "@/types/index.types"
 import Logger from "@/utils/logger"
@@ -37,7 +37,13 @@ export const useAuth = () => {
     }
     if (!address) {
       authStore.setAddress(undefined)
+      return
     }
+    if (authStore.isAuthenticated) {
+      authStore.setAddress(address as WalletAddress)
+      return
+    }
+    onHannelConnect(address)
   }, [address, authStore.isAuthenticated])
 
   const needSwitchNetwork = !appChains.find((chain) => chain.id === selectedNetworkId)
@@ -64,7 +70,9 @@ export const useAuth = () => {
         })
         const result = await loginApi(walletAddress, nonce, signature)
         if (result) {
+          const user = await getProfileApi(walletAddress)
           authStore.setAddress(walletAddress as WalletAddress)
+          authStore.setUser(user)
         }
       } catch (error) {
         logger.error("Sign message failed", error)

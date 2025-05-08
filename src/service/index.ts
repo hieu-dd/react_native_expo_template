@@ -1,6 +1,6 @@
 import { BASE_API_URL } from "@/config/env"
 import axiosInstance from "./axiosInstance"
-import { BaseResponse, SignInResponse } from "@/types/index.types"
+import { BaseResponse, SignInResponse, User } from "@/types/index.types"
 import { storeAuthTokens } from "@/utils/storage"
 
 export const getNonceApi = async (address: string): Promise<string> => {
@@ -67,4 +67,11 @@ export const refreshTokenApi = async (refreshToken: string): Promise<boolean> =>
     return true
   }
   return false
+}
+
+export const getProfileApi = async (address?: string): Promise<User> => {
+  const response = await axiosInstance.get<{ data: User }>(
+    `${BASE_API_URL}/briky/api/users/${address}`,
+  )
+  return response.data.data
 }

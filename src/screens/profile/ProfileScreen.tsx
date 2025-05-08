@@ -1,11 +1,15 @@
 import * as React from "react"
-import { View, Text, StyleSheet } from "react-native"
+import { StyleSheet } from "react-native"
+import { ProfileContext } from "./context/ProfileContext"
+import { useProfile } from "./hooks/useProfile"
+import ProfileView from "./ProfileView"
 
 const ProfileScreen = () => {
+  const { contextValue } = useProfile()
   return (
-    <View style={styles.container}>
-      <Text style={styles.text}>Profile Screen</Text>
-    </View>
+    <ProfileContext.Provider value={contextValue}>
+      <ProfileView />
+    </ProfileContext.Provider>
   )
 }
 
