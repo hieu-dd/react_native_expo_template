@@ -1,24 +1,15 @@
 import * as React from "react"
-import { View, Text, StyleSheet } from "react-native"
+import { ExplorerContext } from "./context/ExplorerContext"
+import { useExplorer } from "./hooks/useExplorer"
+import ExplorerView from "./ExplorerView"
 
 const ExplorerScreen = () => {
+  const { contextValue } = useExplorer()
   return (
-    <View style={styles.container}>
-      <Text style={styles.text}>Explorer Screen</Text>
-    </View>
+    <ExplorerContext.Provider value={contextValue}>
+      <ExplorerView />
+    </ExplorerContext.Provider>
   )
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  text: {
-    fontSize: 24,
-    fontWeight: "bold",
-  },
-})
 
 export default ExplorerScreen

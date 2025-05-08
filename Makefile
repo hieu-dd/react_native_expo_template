@@ -5,6 +5,6 @@ run:
 lint:
 	yarn lint:fix
 
-format:
+check-format:
 	yarn format
 	yarn lint:fix

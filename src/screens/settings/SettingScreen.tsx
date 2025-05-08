@@ -1,24 +1,15 @@
 import * as React from "react"
-import { View, Text, StyleSheet } from "react-native"
+import { SettingContext } from "./context/SettingContext"
+import { useSetting } from "./hooks/useSetting"
+import SettingView from "./SettingView"
 
 const SettingScreen = () => {
+  const { contextValue } = useSetting()
   return (
-    <View style={styles.container}>
-      <Text style={styles.text}>Setting Screen</Text>
-    </View>
+    <SettingContext.Provider value={contextValue}>
+      <SettingView />
+    </SettingContext.Provider>
   )
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  text: {
-    fontSize: 24,
-    fontWeight: "bold",
-  },
-})
 
 export default SettingScreen
